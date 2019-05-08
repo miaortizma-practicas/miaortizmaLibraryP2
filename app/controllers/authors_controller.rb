@@ -10,10 +10,6 @@ class AuthorsController < ApplicationController
 		render json: author, status: 200
 	end
 
-	def new
-		author = Author.new
-	end
-
 	def create
 		author = Author.create(author_params)
 		if author.save
@@ -23,13 +19,20 @@ class AuthorsController < ApplicationController
 		end
 	end
 
-
-
 	def update
+		author = Author.find(params[:id])
 
+		if author.update(author_params)
+			render json: author, status: 201
+		else
+			render json: author.errors, status: :unprocessable_entity
+		end
 	end
 
 	def destroy
+		author = Author.find(params[:id])
+		author.destroy
+		redirect_to authors_path
 	end
 
 	private
