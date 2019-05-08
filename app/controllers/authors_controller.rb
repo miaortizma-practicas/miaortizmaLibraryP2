@@ -2,11 +2,7 @@ class AuthorsController < ApplicationController
 
 	def index
 		authors = Author.all
-		respond_to do |format|
-			format.xml {render :xml => authors.to_xml, status: 200}
-			format.json {render :json => authors, status: 200}	
-		end
-		render plain: 'hola'
+		render json: authors, status: 200
 	end
 
 	def show
